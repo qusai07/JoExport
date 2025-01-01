@@ -1,0 +1,68 @@
+﻿@model ProjectFutureAdvannced.ViewModels.ProductViewModel.CreateProduct
+@{
+    ViewBag.Title = "Add Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="limiter">
+    <div class="container-login100" style="padding-top:100px">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src="~/AddProduct/images/img-01.png" />
+            </div>
+
+            <form class="login100-form" asp-action="AddProduct" asp-controller="Shop" enctype="multipart/form-data" method="post">
+                <span class="login100-form-title">
+                    ADD PRODUCT
+                </span>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Name">Product Name</label>
+                    <input type="text" class="form-control" asp-for="Name">
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+
+                <div class="mb-3 d-flex flex-column">
+                    <label class="form-label" asp-for="Price">Product Price</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input type="text" class="form-control" asp-for="Price">
+                    </div>
+                    <span class="text-danger" asp-validation-for="Price"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="CategoryName">Product Category</label>
+                    <select class="form-select" asp-for="CategoryName">
+                        @foreach(var Category in CategoryRepo.GetAll())
+                            {
+                            <option value="@Category.Name">@Category.Name</option>
+                            }
+                    </select>
+                    <span class="text-danger" asp-validation-for="CategoryName"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="formFile">Product Picture</label>
+                    <input class="form-control" type="file" asp-for="formFile">
+                    <span class="text-danger" asp-validation-for="formFile"></span>
+                </div>
+                <div class="mb-3">
+                    <div class="form-floating">
+                        <textarea asp-for="Description" class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2" asp-for="Description">Descrption</label>
+                    </div>
+                    <span class="text-danger" asp-validation-for="Description"></span>
+                </div>
+                <div class="container-login100-form-btn mt-3 mb-3">
+                    <button type="submit" class="login100-form-btn btn-primary">
+                        Add Product
+                    </button>
+                </div>
+                <div class="text-center pt5">
+                    <a class="txt2" style="color:gray" asp-action="Index" asp-controller="Home">
+                        Back To Home
+                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

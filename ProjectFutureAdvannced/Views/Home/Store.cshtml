@@ -1,0 +1,148 @@
+﻿@model ListOfInfo
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Store";
+}
+<link href="~/cssFile/Store.css" rel="stylesheet" />
+<div class="AllBooks pt-5 pb-5" style="margin-top:100px">
+
+    <div class="container">
+        <div class="books">
+            <div class="">
+                <form class="d-flex" asp-action="StoreBySearch" asp-controller="Home" method="post">
+                    <input class="form-control me-1" type="text" placeholder="Search" asp-for="SearchProduct.product" aria-label="Search">
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </form>
+                <div class="accordion mt-3 mb-5" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed bg-primary d-flex justify-content-between align-items-center" style="color:white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <div class="d-flex justify-content-start align-items-center w-100">
+                                    <i class="fa-solid fa-list p-2"></i> Categories
+                                </div>
+                                <div class="d-flex justify-content-end align-items-center w-100">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="row accordion-body">
+                                @foreach (var category in CategoryRepo.GetAll())
+                                    {
+                                    if (category.ToString() == "AllBooks")
+                                        {
+                                        <a asp-controller="Home" asp-action="StoreByCategory" asp-route-id="@category.Name" class="col-lg-4 col-md-6 text-start p-2">@category.Name</a>
+                                        }
+                                    else
+                                        {
+                                        <a asp-controller="Home" asp-action="StoreByCategory" asp-route-id="@category.Name" class="col-lg-4 col-md-6 text-start p-2">@category.Name</a>
+                                        }
+                                    }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @{
+                var user = await userManager.GetUserAsync(User);
+                if (signInManager.IsSignedIn(User))
+                    {
+                    @if (await userManager.IsInRoleAsync(user, "Shop"))
+                        {
+                        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+                            <a asp-action="AddProduct" asp-controller="Shop" class="btn BtnCustom2 Btn">Add Products <i class="fa-solid fa-caret-right"></i></a>
+                        </div>
+                        <div class="product_Groups" id="splide1" role="group">
+                            @foreach (var product in Model.products)
+                                {
+                                var img = "/ProductImg/" + product.Image;
+                                <div class="productGrid wow fadeInUp shadow p-3 mb-5 bg-white rounded">
+                                    <div class="store-item position-relative text-center">
+                                        <img class="img-fluid" src="@img" style="max-height: 237px;" alt="">
+                                        <div class="pb-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h4 class="mb-3">@product.Name</h4>
+                                                <h6 class="mb-3 text-muted">@product.CategoryName</h6>
+                                            </div>
+                                            <p class="fw-bold btn-sm btn-primary m-0" style="width:fit-content">$@product.Price</p>
+
+                                            <p style="font-size:12px" class="text-start">@product.Description</p>
+                                        </div>
+                                        <div class="btn-group d-flex gap-3 storeBtn mb-3">
+                                            <a asp-controller="home" asp-action="Details" asp-route-id="@product.Id" class=" btn btn-outline-primary">Learn More</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                }
+                        </div>
+                        }
+                    else if (await userManager.IsInRoleAsync(user, "User"))
+
+                        {
+                        @*<div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+                        <a asp-action="AddProduct" asp-controller="Shop" class="btn BtnCustom2 Btn">Add Products <i class="fa-solid fa-caret-right"></i></a>
+                    </div>*@
+                        <div class="product_Groups" id="splide1" role="group">
+                            @foreach (var product in Model.products)
+                                {
+                                var img = "/ProductImg/" + product.Image;
+                                <div class="productGrid wow fadeInUp shadow p-3 mb-5 bg-white rounded">
+                                    <div class="store-item position-relative text-center">
+                                        <img class="img-fluid" src="@img" style="max-height: 237px;" alt="">
+                                        <div class="pb-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h4 class="mb-3">@product.Name</h4>
+                                                <h6 class="mb-3 text-muted">@product.CategoryName</h6>
+                                            </div>
+                                            <p class="fw-bold btn-sm btn-primary m-0" style="width:fit-content">$@product.Price</p>
+
+                                            <p style="font-size:12px" class="text-start">@product.Description</p>
+                                        </div>
+                                        <div class="btn-group d-flex gap-3 storeBtn mb-3">
+                                            <a asp-controller="home" asp-action="Details" asp-route-id="@product.Id" class=" btn btn-outline-primary">Learn More</a>
+                                        </div>
+                                        <div class="btn-group d-flex gap-3">
+                                            <a asp-controller="User" asp-action="AddWishList" asp-route-id="@product.Id" class="small btn btn-primary rounded-2">Add Wishlist</a>
+                                            <a asp-controller="User" asp-action="AddCart" asp-route-id="@product.Id" class=" btn btn-primary rounded-2">Add Cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                        </div>
+                        }
+                    }
+
+                else
+                    {
+                    <div class="product_Groups" id="splide1" role="group">
+                        @foreach (var product in Model.products)
+                            {
+                            var img = "/ProductImg/" + product.Image;
+                            <div class="productGrid wow fadeInUp shadow p-3 mb-5 bg-white rounded">
+                                <div class="store-item position-relative text-center">
+                                    <img class="img-fluid" src="@img" style="max-height: 237px;" alt="">
+                                    <div class="pb-0">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h4 class="mb-3">@product.Name</h4>
+                                            <h6 class="mb-3 text-muted">@product.CategoryName</h6>
+                                        </div>
+                                        <p class="fw-bold btn-sm btn-primary m-0" style="width:fit-content">$@product.Price</p>
+
+                                        <p style="font-size:12px" class="text-start">@product.Description</p>
+                                    </div>
+                                    <div class="btn-group d-flex gap-3 storeBtn mb-3">
+                                        <a asp-controller="home" asp-action="Details" asp-route-id="@product.Id" class=" btn btn-outline-primary">Learn More</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            }
+                    </div>
+                    }
+            }
+
+        </div>
+    </div>
+</div>

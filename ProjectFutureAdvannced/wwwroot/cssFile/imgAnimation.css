@@ -1,0 +1,17 @@
+﻿.imgAnimation {
+    animation: imgLanding 6s ease-in-out infinite;
+}
+
+@keyframes imgLanding {
+    0% {
+        transform: translate3d(0,-15px,0);
+    }
+
+    50% {
+        transform: translate3d(0,15px,0);
+    }
+
+    100% {
+        transform: translate3d(0,-15px,0);
+    }
+}

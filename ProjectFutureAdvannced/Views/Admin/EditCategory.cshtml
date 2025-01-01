@@ -1,0 +1,31 @@
+﻿@model ProjectFutureAdvannced.ViewModels.CategoryViewModel.EditCategoryViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutDash.cshtml";
+}
+<div class="container">
+    <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+        <h6 class="fw-bold headP">Edit Category</h6>
+    </div>
+    <form asp-controller="Admin" class="card p-5" asp-action="EditCategory" enctype="multipart/form-data" method="post">
+        <div class="card-header">
+            <h2>
+                Edit Category
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Name</label>
+                <input asp-for="Name" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="Name"></span>
+
+            </div>
+            <div class="mb-3">
+                <label asp-for="ImageFile" class="form-label">Image Category</label>
+                <input asp-for="ImageFile" class="form-control" type="file">
+                <span class="text-danger" asp-validation-for="ImageFile"></span>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Edit Category</button>
+        </div>
+    </form>
+</div>

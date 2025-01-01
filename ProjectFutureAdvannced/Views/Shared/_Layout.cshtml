@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/AddProduct/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/AddProduct/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/AddProduct/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/AddProduct/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/AddProduct/css/main.css">
+    <!--===============================================================================================-->
+
+
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link href="~/splidejs/css/splide.min.css" rel="stylesheet" />
+    <link href="~/cssFile/headSection.css" rel="stylesheet" />
+    <link href="~/cssFile/Category.css" rel="stylesheet" />
+    <link href="~/cssFile/LandingPage.css" rel="stylesheet" />
+    <link href="~/cssFile/Footer.css" rel="stylesheet" />
+    <link href="~/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/cssFile/service.css" rel="stylesheet" />
+    <link href="~/cssFile/Productcss.css" rel="stylesheet" />
+    <link href="~/cssFile/imgAnimation.css" rel="stylesheet" />
+    <link href="~/cssFile/shopCss.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/CssProfile/StyleSheet.css" rel="stylesheet" />
+    <link href="~/cssFile/vipShop.css" rel="stylesheet" />
+    <link href="~/cssFile/ProfileCss.css" rel="stylesheet" />
+    <link href="~/cssFile/CartCss.css" rel="stylesheet" />
+    <link href="~/cssFile/ModelForm.css" rel="stylesheet" />
+    <link href="~/cssFile/Details.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
+        <div class="container">
+            <a class="navbar-brand fs-3 fw-bold" asp-action="index" asp-controller="home">
+                <div>JoExport</div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse fs-5" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Home" class="nav-link active" aria-current="page">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Store" asp-controller="Home" class="nav-link active" aria-current="page">Store</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a asp-controller="Home" asp-action="Store" class="dropdown-item">All</a></li>
+                            <li><hr class="dropdown-divider" style="height:1px"></li>
+                            @*@foreach (var product in @CategoryRepo.GetAll())
+                                {
+                                <li><a asp-action="StoreByCategory" asp-controller="Home" asp-route-id="@product.Name" class="dropdown-item">@product.Name</a></li>
+                                }*@
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Vip Shop</a>
+                    </li>
+
+                </ul>
+                <div class="d-flex gap-3 fs-5">
+                    @{
+                        if (signInManager.IsSignedIn(User))
+                            {
+                            var user = await userManager.GetUserAsync(User);
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle fw-bold" type="button" style="color:white" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @{
+                                        var img = "/AccountImg/" + user.ImgUrl;
+                                        <img src="@img" style="width:45px; height:45px" class="img-profile rounded-circle" />
+                                    }
+                                    @user.UserName
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    @if (await userManager.IsInRoleAsync(user, "Shop"))
+                                        {
+                                        <li><a asp-action="GeneralShopProfile" asp-controller="Shop" class="dropdown-item"><i class="fa-solid fa-user"></i> Profile</a></li>
+                                        <li><a asp-action="addProduct" asp-controller="Shop" class="dropdown-item"><i class="fa-solid fa-square-plus"></i> Add Product</a></li>
+                                        }
+
+                                    @if (await userManager.IsInRoleAsync(user, "User"))
+                                        {
+                                        <li><a asp-action="GeneralUserProfile" asp-controller="User" class="dropdown-item"><i class="fa-solid fa-user"></i> Profile</a></li>
+                                        var userId = userRepo.GetByFk(user.Id);
+                                        <li class="d-flex justify-content-center align-items-center"><a asp-action="listCart" asp-controller="User" class="dropdown-item d-flex justify-content-between align-items-center"><p><i class="fa-solid fa-cart-shopping"></i>  My Cart</p><p class="text-danger">@CartRepo.GetAllProductByUserId(userId.Id).ToList().Count()</p></a></li>
+                                        <li class="d-flex justify-content-center align-items-center"><a asp-action="MyWishlist" asp-controller="User" class="dropdown-item"><i class="fa-solid fa-list"></i> My Wishlist</a></li>
+
+                                        }
+
+                                    @if (await userManager.IsInRoleAsync(user, "Admin"))
+                                        {
+                                        <li><a asp-action="Index" asp-controller="Admin" class="dropdown-item"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+
+                                        <li><a asp-action="GeneralProfile" asp-controller="Admin" class="dropdown-item"><i class="fa-solid fa-user"></i> Profile</a></li>
+                                        }
+
+
+                                    @*<li><a class="dropdown-item" asp-controller="Account" asp-action="Massages"><i class="fa-solid fa-envelope"></i> Massages</a></li>*@
+                                    <li><hr class="dropdown-divider " style="height:1px"></li>
+                                    <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account"><i class="fa fa-external-link" aria-hidden="true"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                            }
+                        else
+                            {
+                            <a asp-action="Login" asp-controller="Account" class="btn btn-outline-light">Login</a>
+                            <a asp-action="Create" asp-controller="Account" class="btn btn-outline-light">Sign Up</a>
+                            }
+                    }
+                </div>
+            </div>
+        </div>
+    </nav>
+    @RenderBody()
+    <div class="Footer">
+        <div class="container">
+            <footer class="pt-5">
+                <div class="row">
+                    <div class="foot col-4">
+                        <a class="headFooter navbar-brand fw-bold d-flex align-items-center justify-content-start link-dark text-decoration-none gap-1" asp-action="index" asp-controller="home">JoExport</a>
+                        <p class="fsFooter text-muted">Welcome to JoExport, the leading agency across the board! Discover a wide range of quality products that are sure to meet your needs and exceed your expectations. With a wide range of makes and models, we offer a variety of products to suit every lifestyle and budget.</p>
+
+                    </div>
+                    <div class="foot foots col-4">
+                        <h5>Section</h5>
+                        <ul class="nav flex-column">
+                            <li class="nav-item mb-2"><a asp-action="Index" asp-controller="Home" class="nav-a p-0  ">Home</a></li>
+                            <li class="nav-item mb-2"><a asp-controller="Home" asp-action="Store" class="nav-a p-0  ">Store</a></li>
+                            <li class="nav-item mb-2"><a asp-controller="Home" asp-action="ContactUs" class="nav-a p-0  ">Contact Us</a></li>
+                            <li class="nav-item mb-2"><a asp-action="AboutUs" asp-controller="Home" class="nav-a p-0  ">About</a></li>
+                        </ul>
+                    </div>
+                    <div class="foot col-4">
+                        <h5>Contact Us</h5>
+                        <ul class="nav flex-column FooterLinks">
+                            <li class="nav-item mb-2">
+                                @*<a href="mailto:ramimatarneh76@gmail.com" class="nav-aa p-0 ">ramimatarneh76@gmail.com</a>*@
+                                <ul class="list-unstyled d-flex  align-items-center  mt-2">
+                                    <li class=" "><a class="link-light d-flex justify-content-center align-items-center"><i class="fa-brands fa-linkedin"></i></a></li>
+                                    <li class=" "><a class="link-light d-flex justify-content-center align-items-center"><i class="fa-brands fa-github-alt"></i></a></li>
+                                    <li class=""><a class="link-light d-flex justify-content-center align-items-center"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item mb-2">
+                                @*<a href="mailto:ramimatarneh76@gmail.com" class="nav-aa p-0 ">qusaitahat19@gmail.com</a>*@
+                                <ul class="list-unstyled d-flex d-flex  align-items-center mt-2">
+                                    <li class=""><a class="link-light d-flex justify-content-center align-items-center "><i class="fa-brands fa-linkedin"></i></a></li>
+                                    <li class=""><a class="link-light d-flex justify-content-center align-items-center"><i class="fa-brands fa-github-alt"></i></a></li>
+                                    <li class=" "><a class="link-light d-flex justify-content-center align-items-center"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center mt-4 p-2 border-top">
+                    <p class="fw-bold copyright">&copy; 2023 JoExport. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+    <!--===============================================================================================-->
+    <script src="~/AddProduct/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/AddProduct/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/AddProduct/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/AddProduct/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="~/font-awesome/js/all.min.js"></script>
+
+    <!--===============================================================================================-->
+
+</body>
+</html>

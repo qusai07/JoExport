@@ -1,0 +1,39 @@
+﻿@model ProjectFutureAdvannced.ViewModels.ShopViewModel.PostViewModel
+    <div class="modal fade" id="exampleModalIn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Create Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="col-form-label" asp-for="@Model.Name">Post Title</label>
+                            <input type="text" asp-for="@Model.Name" class="form-control">
+                            <span class="text-danger" asp-validation-for="@Model.Name"></span>
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="ImageFile">Product Picture</label>
+                            <input class="form-control" type="file" asp-for="ImageFile">
+                            <span class="text-danger" asp-validation-for="ImageFile"></span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <textarea class="form-control" asp-for="@Model.Description" placeholder="Leave a comment here" style="height: 100px"></textarea>
+                                <label for="floatingTextarea2" asp-for="@Model.Description">Descrption</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="@Model.Description"></span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Create">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

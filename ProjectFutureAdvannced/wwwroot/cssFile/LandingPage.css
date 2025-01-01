@@ -1,0 +1,137 @@
+﻿:root {
+    --colorWhite: white;
+    --colorbg: #0d6efd;
+    --colorbg2: #0750ba;
+    --gray: #E0E0E0;
+}
+.Landing {
+    padding: 0 20px;
+    margin-top:76px;
+    height: 89vh;
+}
+    .Landing .splide {
+        height: 88vh;
+    }
+ .splide__track {
+        height: 100%;
+    }
+.BtnCustom1 {
+    background: var(--colorWhite);
+    border: 2px solid var(--colorWhite);
+    color:var(--colorbg);
+    transition:0.5s;
+    font-weight:bold;
+}
+    .BtnCustom1:hover {
+        background-color: transparent;
+        color: var(--colorWhite);
+    }
+.BtnCustom3 {
+    background: var(--colorWhite);
+    border: 2px solid var(--colorbg);
+    color: var(--colorbg);
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+    .BtnCustom3:hover {
+        background-color: var(--colorbg);
+        color: var(--colorWhite);
+    }
+.slideImg img{
+    max-width:80%;
+}
+.slideLanding{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    position:relative;
+    padding:0 40px
+}
+.slideInfo {
+    flex: 0 0 auto;
+    width: 50%;
+    align-items: start;
+    padding: 0 20px;
+    color:var(--colorWhite);
+}
+.slideImg {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: imgLanding 4s ease-in-out infinite;
+}
+@keyframes imgLanding {
+    0% {
+        transform: translate3d(0,-15px,0);
+    }
+
+    50% {
+        transform: translate3d(0,15px,0);
+    }
+
+    100% {
+        transform: translate3d(0,-15px,0);
+    }
+}
+@media (min-width:992px) {
+    .slideImg {
+        flex: 0 0 auto;
+        width: 45%;
+    }
+}
+    @media (max-width:991px) {
+        .slideInfo {
+            width: 100%;
+        }
+        .slideLanding {
+            padding: 0 10px
+        }
+        .Landing{
+            padding:0;
+        }
+
+        .slideImg {
+            max-width: 100%;
+        }
+
+        .txtLanding {
+            text-align: center;
+        }
+        .slideImg img {
+            max-width: 50%;
+        }
+        .headLanding {
+            text-align: center;
+            font-size: 23px;
+        }
+
+        .slideInfo {
+            margin-top: 80px;
+            align-items: center;
+        }
+
+        .slideLanding {
+            flex-direction: column;
+        }
+    }
+
+    .txtLanding {
+        color: var(--gray);
+        font-size: 14px;
+    }
+
+    .navbar {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+        background: var(--colorbg);
+    }
+
+    .navbarBg {
+        background: var(--colorbg2);
+        transition: 0.5s;
+    }

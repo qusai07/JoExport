@@ -1,0 +1,65 @@
+﻿@model ProjectFutureAdvannced.ViewModels.UserViewModel.SecurityUser
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="profiles" style="margin:100px 0px">
+    <div class="container">
+        <div class="boxPorfile d-flex w-100">
+            <div class="boxPorfile1">
+                <div class="account mb-4 p-4 d-flex justify-content-center align-items-center flex-column">
+                    <div class="imgaccount">
+                        @{
+                            var user = await userManager.GetUserAsync(User);
+                            var img = "/AccountImg/" + user.ImgUrl;
+                            <img src="@img" />
+                            var userr = userRepo.GetByFk(user.Id);
+
+                        }
+                    </div>
+                    <div class="infoAccount text-center">
+                        <h3>@user.UserName</h3>
+                        <p>@userr.Major</p>
+                    </div>
+                </div>
+                <div class="list-group">
+                    <a asp-action="GeneralUserProfile" asp-controller="User" class="list-group-item list-group-item-action"> <i class="fas fa-fw fa-user"></i> General Information</a>
+                    <a asp-controller="User" asp-action="SecurityUser" class="list-group-item list-group-item-action"><i class="fa fa-user-secret" aria-hidden="true"></i> Security Information</a>
+                    <a asp-action="listCart" asp-controller="User" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-cart-shopping"></i> Cart
+                    </a>
+                    <a asp-action="MyWishlist" asp-controller="User" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-list"></i> My Wishlist
+                    </a>
+                    <a asp-action="Logout" asp-controller="Account" class="list-group-item list-group-item-action">
+                        <i class="fa fa-external-link" aria-hidden="true"></i> Remove Account
+                    </a>
+                    <a asp-action="Logout" asp-controller="Account" class="list-group-item list-group-item-action">
+                        <i class="fa fa-external-link" aria-hidden="true"></i> Log Out
+                    </a>
+                </div>
+            </div>
+            <form class="boxPorfile2" asp-action="SecurityUser" asp-controller="User" enctype="multipart/form-data" method="post">
+                <div class="row BasicInfo mb-5">
+                    <h6 class="col-12">SECURITY INFORMATION</h6>
+                    <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
+                        <label class="form-label" asp-for="CurrentPassword">Current Password</label>
+                        <input type="password" class="form-control" asp-for="CurrentPassword">
+                        <span class="text-danger" asp-validation-for="CurrentPassword"></span>
+                    </div>
+                    <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
+                        <label class="form-label" asp-for="NewPassword">New Password</label>
+                        <input type="password" class="form-control" asp-for="NewPassword">
+                        <span class="text-danger" asp-validation-for="NewPassword"></span>
+                    </div>
+                    <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
+                        <label class="form-label" asp-for="ConfirmNewPassword">Confirm New Password</label>
+                        <input type="password" class="form-control" asp-for="ConfirmNewPassword">
+                        <span class="text-danger" asp-validation-for="ConfirmNewPassword"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Security Information</button>
+            </form>
+
+        </div>
+    </div>
+</div>

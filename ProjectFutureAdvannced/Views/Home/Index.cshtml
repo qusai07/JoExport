@@ -1,0 +1,220 @@
+﻿@model ProjectFutureAdvannced.ViewModels.ListOfInfo
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int countProduct = 0, countShop = 0,countVip=0;
+}
+@* start landing  *@
+<div class="Landing navbar-dark bg-primary">
+    <div class="container">
+        <div class="splide" style="width:100%;" id="landingsplide" role="group" aria-label="Splide Basic HTML Example">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <li class="splide__slide d-flex justify-content-center align-items-center">
+                        <div class="row slideLanding">
+                            <div class=" slideInfo col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center flex-column pb-4 ">
+                                <h1 class="fw-bold headLanding">Welcome To JoExport</h1>
+                                <p class="txtLanding"> Welcome to JoExport, the leading agency across the board! Discover a wide range of quality products that are sure to meet your needs and exceed your expectations. With a wide range of makes and models, we offer a variety of products to suit every lifestyle and budget. </p>
+                                <a class="btn BtnCustom1 Btn" asp-action="Store" asp-controller="home">Shop Now</a>                            </div>
+                            <div class="imgAnimation slideImg col-lg-6 col-md-12 col-sm-12">
+                                <img src="~/ImagePage/J.png" />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide d-flex justify-content-center align-items-center">
+                        <div class="row slideLanding">
+                            <div class="slideInfo col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center flex-column pb-4">
+                                <h1 class="fw-bold headLanding">Category OF JoExport</h1>
+                                <p class="txtLanding"> Our team of knowledgeable and friendly professionals is dedicated to providing you with a smooth and enjoyable buying experience for our products. Browse our site and enjoy the perfect experience. </p>
+                                <a class="btn BtnCustom1 Btn" asp-action="Store" asp-controller="home">View Products</a>
+                            </div>
+                            <div class="imgAnimation slideImg col-lg-6 col-md-12 col-sm-12">
+                                <img src="~/ImagePage/J.png" />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+@* end landing  *@
+
+@* Start Products *@
+<div class="container-xxl py-5">
+    <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+        <h6 class="fw-bold headP">Products</h6>
+    </div>
+    <div class="container">
+        <div class="row g-4">
+            @foreach (var product in Model.products)
+                {
+                if (countProduct < 3)
+                    {
+                    var productImg = "/ProductImg/" + product.Image;
+                    <div class="col-lg-4 col-md-6 wow fadeInUp">
+                        <div class="store-item position-relative text-center">
+                            <img class="img-fluid" src="@productImg" style="max-height: 237px;" alt="">
+                            <div class="p-4">
+                                <div class="text-center mb-3">
+                                    <small class="fa fa-star text-primary"></small>
+                                    <small class="fa fa-star text-primary"></small>
+                                    <small class="fa fa-star text-primary"></small>
+                                    <small class="fa fa-star text-primary"></small>
+                                    <small class="fa fa-star text-primary"></small>
+                                </div>
+                                <h4 class="mb-3">@product.Name</h4>
+                                <p>@product.Description .</p>
+                                <h4 class="text-primary">$@product.Price</h4>
+                            </div>
+                            <div class="store-overlay">
+                                <a asp-controller="home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
+                                <a asp-controller="User" asp-action="AddCart" asp-route-id="@product.Id" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                countProduct++;
+                }
+            <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+                <a class="btn BtnCustom2 Btn" asp-action="Store" asp-controller="home">View More Products <i class="fa-solid fa-caret-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+@* end Products *@
+
+<!-- Start Category-->
+<div class="categorys">
+    <div class="container">
+        <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+            <h6 class="fw-bold headP">Categories</h6>
+        </div>
+        <div class="row flex-sm-row categorysDiv pb-3">
+            @*@{
+                int count = 0;
+                foreach (var Category in Model.categories)
+                    {
+                    if (count < 12)
+                        {
+                        var img = "/CategoryImage/" + Category.CategoryImg;
+                        <a asp-action="Store" asp-controller="Home" asp-route-id="@Category.Name" class="categoryInfo col-lg-2 col-md-3 col-sm-4 col-sm-6 d-flex justify-content-center align-items-center flex-column mb-5">
+                            <div class="CategoryImage">
+                                <img src="@img" asp-append-version="true" alt="Alternate Text" style="width:70px;height:60px" />
+                            </div>
+                            <h6 class="CategoryName text-muted pt-2">@Category.Name.ToString().Replace("_", " ")</h6>
+                        </a>
+                        count++;
+                        }
+                    }
+            }*@
+        </div>
+        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+            <a class="btn BtnCustom3 Btn" asp-action="Store" asp-controller="Home">More Categories <i class="fa-solid fa-caret-right"></i></a>        </div>
+    </div>
+</div>
+<!--end Category-->
+<!-- LIST OF SHOPER-->
+<section style="background-color: #eee;">
+    <div class="text-center container py-5">
+        <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+            <h6 class="fw-bold headP">Shop</h6>
+        </div>
+        <div class="row">
+            @*foreach (var shoper in Model.shops)
+        {
+        var imgs = "/ShopImage/" + shoper.imgShop;*@
+            @{
+                foreach (var shop in Model.appUsers)
+                    {
+                    if (countShop < 6)
+                        {
+                        @if (await userManager.IsInRoleAsync(shop, "Shop"))
+                            {
+                            var shopUser = ShopRepo.GetByFk(shop.Id);
+                            var imgShop = "/AccountImg/" + shop.ImgUrl;
+
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card">
+                                    <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
+
+                                        <img src="@imgShop" style=" height: 250px;" class="w-100" />
+                                        @*<img src="@imgs" style=" height: 250px;" class="w-100" />*@
+                                        <a href="#!">
+                                            <div class="hover-overlay">
+                                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="card-body shopBady">
+                                        <div class="d-flex justify-content-center align-items-start flex-column">
+                                            <h5 class="card-title fw-bold m-0 mb-1">@shopUser.UserName</h5>
+                                        </div>
+                                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                            <a class="btn btn-sm btnshoper fw-bold" asp-action="UserProfile" asp-controller="Shop" asp-route-UserName="@shop.UserName">View Galary <i class="fa-solid fa-caret-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        }
+                    countShop++;
+                    }
+            }
+            @*}*@
+
+        </div>
+        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+            <a class="btn BtnCustom3 Btn" asp-action="Store" asp-controller="home">More Shoper <i class="fa-solid fa-caret-right"></i></a>        </div>
+    </div>
+</section>
+<!-- end Category-->
+<!--VIP Shop-->
+<div class="vipshop mb-5">
+    <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+        <h6 class="fw-bold headP">VIP SHOP</h6>
+    </div>
+    <div class="wrap mb-5">
+        @foreach (var shopVip in Model.appUsers)
+            {
+            if (await userManager.IsInRoleAsync(shopVip, "Shop"))
+                {
+                var imgVip = "/AccountImg/" + shopVip.ImgUrl;
+                var shopUser = ShopRepo.GetByFk(shopVip.Id);
+                var products = ProductRepo.GetAllById(shopUser.Id);
+                if (shopUser.RequestStatus == RequestStatus.Approved)
+                    {
+                    if (countVip < 4)
+                        {
+                        <div class="box">
+                            <div class="box-top">
+                                <img class="box-image" src="@imgVip" />
+                                <div class="title-flex">
+                                    <h3 class="box-title">@shopUser.Name</h3>
+                                    <p class="user-follow-info text-muted">@products.Count() Products</p>
+                                    <p class="btn btn-primary text-white">VIP</p>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <a asp-action="UserProfile" asp-controller="Shop" asp-route-UserName="@shopVip.UserName" class="button">View Galary</a>
+                            </div>
+                        </div>
+                        }
+                    }
+                }
+            }
+    </div>
+</div>
+<script src="~/splidejs/js/splide.min.js"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        new Splide('#landingsplide', {
+            type: 'loop',
+            rewind: true,
+            autoplay: true,
+            interval: 5000,
+            speed: '2000',
+
+        }).mount();
+    });
+</script>

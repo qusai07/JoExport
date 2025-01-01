@@ -1,0 +1,213 @@
+﻿@model ListOfInfo
+@{
+    ViewBag.Title = "User Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = await userManager.GetUserAsync(User);
+}
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css" />
+<link rel="stylesheet" href="~/Gallery/compact-gallery.css" />
+<div class="container">
+    <div class="px-lg-5">
+        <!-- For demo purpose -->
+        <div class="row py-5">
+            <div class="col-lg-12 mx-auto">
+                <div class="boxPorfile1 w-100">
+                    <div class="account mb-4 p-4 d-flex justify-content-center align-items-center flex-column">
+                        <div class="imgaccount">
+                            @{
+                                //var user = await userManager.GetUserAsync(User);
+                                var shop = ShopRepo.GetByFk(Model.AppUser.Id);
+                                var img = "/AccountImg/" + Model.AppUser.ImgUrl;
+                                <img src="@img" />
+                            }
+                        </div>
+                        <div class="infoAccount text-center">
+                            <h3>@Model.AppUser.UserName</h3>
+                            @*<p>@shop.Major</p>*@
+                        </div>
+                        @*<div class="btn-group mt-3 mb-3">
+                            <a href="#" class="btn btn-outline-primary">Chat</a>
+                            <a href="#" class="btn btn-primary ">Follow</a>
+                        </div>*@
+                        <div class="d-flex gap-4">
+                            <div class="text-center">
+                                <p class="text-primary fw-bold">Gallery</p>
+                                <p class="text-muted">11</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-primary fw-bold">Post</p>
+                                <p class="text-muted ">15</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-primary fw-bold">Followers</p>
+                                <p class="text-muted ">444</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-primary fw-bold">Following</p>
+                                <p class="text-muted ">333</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End -->
+        <div id="carouselExampleControls" class="carousel slide">
+            <div class="d-flex gap-3">
+                <button class="btn btn-outline-primary" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style="width:150px">
+                    Gallery <i class="fa-solid fa-grip"></i>
+                </button>
+                <button class="btn btn-primary" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next" style="width:150px">
+                    Post <i class="fa-solid fa-signs-post"></i>
+                </button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="perspective: none">
+                    <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+                        <h6 class="fw-bold headP">Posts</h6>
+                    </div>
+
+                    @if (await userManager.IsInRoleAsync(user, "Shop"))
+                        {
+                        <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalIn">
+                                    Add Post <i class="fa-solid fa-image"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Gallery item -->
+                            @foreach (var post in Model.Posts)
+                                {
+                                var imgs = "/PostImage/" + post.ImageUrl;
+
+
+                                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                                    <div class="bg-white rounded shadow-sm">
+                                        @if (post.ImageUrl != null)
+                                            {
+                                            <img src="@imgs" alt="" class="img-fluid card-img-top">
+                                            }
+                                        else
+                                            {
+                                            <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
+                                            }
+                                        <div class="p-4">
+                                            <h5> @post.Name</h5>
+                                            <p class="small text-muted mb-0">@post.Description</p>
+                                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                                <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
+                                                    <span class="small text">@post.DateTime</span>
+                                                    <span><i class="fa-solid fa-calendar-days"></i></span>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex flex-column gap-3 mb-3">
+                                                <a class="btn btn-success" asp-action="EditPost" asp-controller="Shop" asp-route-id="@post.Id">Edit</a>
+                                                <a class="btn btn-danger" asp-action="DeletePost" asp-controller="Shop" asp-route-id="@post.Id">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End -->
+                                }
+
+
+                        </div>
+                        }
+                    else
+                        {
+                        <div class="row">
+                            <!-- Gallery item -->
+                            @foreach (var post in Model.Posts)
+                                {
+                                var imgs = "/PostImage/" + post.ImageUrl;
+
+
+                                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                                    <div class="bg-white rounded shadow-sm">
+                                        @if (post.ImageUrl != null)
+                                            {
+                                            <img src="@imgs" alt="" class="img-fluid card-img-top">
+                                            }
+                                        else
+                                            {
+                                            <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
+                                            }
+                                        <div class="p-4">
+                                            <h5> @post.Name</h5>
+                                            <p class="small text-muted mb-0">@post.Description</p>
+                                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                                <p class="w-100 small d-flex mb-0 d-flex justify-content-between align-items-center">
+                                                    <span class="small text">@post.DateTime</span>
+                                                    <span><i class="fa-solid fa-calendar-days"></i></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End -->
+                                }
+                        </div>
+
+                        }
+                </div>
+                <div class="carousel-item" style="perspective: none">
+
+                    <!--Start Gallery-->
+                    <section class="gallery-block compact-gallery ">
+                        <div class="headSection d-flex mb-3 justify-content-center align-items-center flex-column ">
+                            <h6 class="fw-bold headP">Gallery</h6>
+                        </div>
+
+                        @{
+                            if (await userManager.IsInRoleAsync(user, "Shop"))
+                                {
+                                <div class="d-flex CategoriesBtn align-items-center gap-4 mb-5">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalOut">
+                                            Add Photo <i class="fa-solid fa-image"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                }
+                        }
+
+                    <div class="row no-gutters">
+                        @foreach (var Gallerys in @Model.galleries)
+                            {
+                            var imgs = "/PostImage/" + Gallerys.ImageUrl;
+
+                            <div class="col-md-6 col-lg-4 item zoom-on-hover">
+                                <div class="lightbox" href="@imgs">
+                                    <img class="img-fluid image" src="~/imgGallery/image1.jpg">
+                                    <span class="description">
+                                        <span class="description-heading">@Gallerys.Name</span>
+                                        <span class="description-body">@Gallerys.Description</span>
+                                    </span>
+                                </div>
+                            </div>
+                            }
+                    </div>
+                    </section>
+
+                    <!--end Gallery-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<script>
+    baguetteBox.run('.compact-gallery', { animation: 'slideIn' });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+@await Html.PartialAsync("_PostPartialView", new ProjectFutureAdvannced.ViewModels.ShopViewModel.PostViewModel());
+@await Html.PartialAsync("_GalleryPartialView", new ProjectFutureAdvannced.ViewModels.ShopViewModel.GalleryViewModel());

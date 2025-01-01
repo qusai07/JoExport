@@ -1,0 +1,20 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@using ProjectFutureAdvannced.ViewModels;
+@using ProjectFutureAdvannced.Models;
+@using ProjectFutureAdvannced.ViewModels.UserViewModel;
+@using ProjectFutureAdvannced.Models.Model.AccountUser;
+@inject Microsoft.AspNetCore.Identity.UserManager<AppUser> userManager
+@inject Microsoft.AspNetCore.Identity.SignInManager<AppUser> signInManager
+@inject ProjectFutureAdvannced.Models.IRepository.IUserRepository userRepo
+@inject ProjectFutureAdvannced.Models.IRepository.IShopRepository ShopRepo
+@inject ProjectFutureAdvannced.Models.IRepository.IUserRepository userRepo
+@inject ProjectFutureAdvannced.Models.IRepository.IAdminRepository AdminRepo
+@inject ProjectFutureAdvannced.Models.SqlRepository.ICartRepository CartRepo
+@inject ProjectFutureAdvannced.Models.IRepository.ICategoryRepository CategoryRepo
+@inject ProjectFutureAdvannced.Models.IRepository.IProductRepository ProductRepo
+
+
+@inject Microsoft.AspNetCore.Identity.RoleManager<Microsoft.AspNetCore.Identity.IdentityRole> RolesManager
+@using ProjectFutureAdvannced.Models.Enums;
+<a href="C:\Users\hp\Downloads\JoExportVersion\JoExportVersion\ProjectFutureAdvannced\Views\_ViewImports.cshtml">C:\Users\hp\Downloads\JoExportVersion\JoExportVersion\ProjectFutureAdvannced\Views\_ViewImports.cshtml</a>

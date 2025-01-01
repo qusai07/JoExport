@@ -1,0 +1,64 @@
+﻿@model ListOfInfo
+
+@{
+    Layout = "~/Views/Shared/_LayoutDash.cshtml";
+    var userAccount = userRepo.GetByFk(Model.AppUser.Id);
+
+
+}
+
+<div class="container">
+    <div class="account mb-4 p-4">
+        <div class="row">
+            <div class="col-lg-3">
+                @{
+                    var user = Model.AppUser;
+                    var img = "/AccountImg/" + user.ImgUrl;
+                    var shop = ShopRepo.GetByFk(user.Id);
+
+                    <img src="@img" style="max-width:100%" />
+                }
+            </div>
+            <div class="infoAccount col-lg-8">
+                <h5>Name: @userAccount.Name</h5>
+                <h5>UserName: @user.UserName</h5>
+                <h5>Email: @user.Email</h5>
+            </div>
+        </div>
+    </div>
+    <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+        <h6 class="fw-bold headP">Carts</h6>
+    </div>
+    <div class="product_Groups" id="splide1" role="group">
+        @foreach (var product in Model.products)
+            {
+            var imgs = "/ProductImg/" + product.Image;
+            <div class="productGrid wow fadeInUp shadow p-3 mb-5 bg-white rounded">
+                <div class="store-item position-relative text-center">
+                    <img class="img-fluid" src="@imgs" style="max-height: 237px;" alt="">
+                    <div class="pb-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="mb-3">@product.Name</h4>
+                            <h6 class="mb-3 text-muted">@product.CategoryName</h6>
+                        </div>
+                        <div class="d-flex justify-content-start align-items-center flex-column">
+                            <p>Author</p>
+                            @{
+                                                        <a asp-controller="Shop" asp-action="UserProfile" asp-route-UserName="@user.UserName">
+                                                            @{
+                                                                var shoper = ShopRepo.Get(product.ShopId);
+                                                                    <h5>@shoper.UserName</h5>
+                                                            }
+                                                        </a>
+                            }
+                        </div>
+                        <p class="fw-bold btn-sm btn-primary m-0" style="width:fit-content">$@product.Price</p>
+
+                        <p style="font-size:12px" class="text-start">@product.Description</p>
+                    </div>
+                </div>
+            </div>
+            }
+    </div>
+</div>
+

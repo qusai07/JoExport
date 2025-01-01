@@ -1,0 +1,63 @@
+﻿:root {
+    --colorWhite: white;
+    --colorbg: #0d6efd;
+    --colorbg2: #0750ba;
+    --gray: #E0E0E0;
+    --borderColor: rgba(0,0,0,.125);
+    --gray1: #eee;
+    --colorbtn: #9dc4ff
+
+}
+.Service1{
+    background:var(--gray1);
+}
+.Service2 {
+    background: var(--colorbg);
+}
+.imgService{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.imgService img {
+    max-width: 100%;
+}
+.ServiceInfo{
+    display:flex;
+    justify-content:center;
+    align-items:start;
+    flex-direction:column;
+}
+    .ServiceInfo h1{
+        color:var(--colorbg);
+    }
+.Service2 .ServiceInfo h1 {
+    color: var(--colorWhite);
+}
+.ServiceInfo p {
+    font-size: 20px;
+}
+    .Service2 .ServiceInfo p {
+    color: var(--gray);
+    font-size:20px;
+}
+
+@media(max-width:991px) {
+    .ServiceInfo {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+.BtnCustom2 {
+    background: var(--colorbg);
+    color: var(--colorWhite);
+    border:2px solid var(--colorbg);
+    transition: 0.5s;
+    font-weight:bold;
+}
+    .BtnCustom2:hover {
+        background: var(--colorWhite);
+        color: var(--colorbg);
+        border: 2px solid var(--colorbg);
+    }

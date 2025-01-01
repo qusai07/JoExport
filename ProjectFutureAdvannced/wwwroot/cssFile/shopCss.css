@@ -1,0 +1,37 @@
+﻿:root {
+    --colorWhite: white;
+    --colorbg: #0d6efd;
+    --colorbg2: #0750ba;
+    --gray: #E0E0E0;
+    --borderColor: rgba(0,0,0,.125);
+    --gray1: #eee;
+    --colorbtn: #9dc4ff
+}
+.shopBady {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    background: var(--colorbg);
+    padding:10px;
+}
+
+    .shopBady .card-title{
+        color:var(--colorWhite);
+    }
+.btnshoper{
+    background:var(--colorWhite);
+    transition:0.5s;
+    color:var(--colorbg);
+}
+.btnshoper:hover {
+    background-color:transparent;
+    transition: 0.5s;
+    color: var(--colorWhite);
+    border:1px solid var(--colorWhite);
+}
+.CategorysType {
+    background-color: var(--colorbtn);
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 3px 6px;
+}

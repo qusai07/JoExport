@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ProjectFutureAdvannced.Models.Model.Product>
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@* Start Products *@
+<div class="container-xxl py-5">
+    <div class="headSection d-flex justify-content-center align-items-center flex-column pt-5 pb-5">
+        <h6 class="fw-bold headP">MY Products</h6>
+    </div>
+    <div class="container">
+        <div class="row g-4">
+            @foreach (var product in Model)
+                {
+                
+                var img = "/ProductImg/" + product.Image;
+                <div class="col-lg-4 col-md-6 wow fadeInUp shadow p-3 mb-5 bg-white rounded">
+                    <div class="store-item position-relative text-center">
+                        <img class="img-fluid" src="@img" style="max-height: 237px;" alt="">
+                        <div class="p-4 pb-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="mb-3">@product.Name</h4>
+                                <h6 class="mb-3 text-muted">@product.CategoryName</h6>
+                            </div>
+                            <p class="fw-bold btn-sm w-25 btn-primary">$@product.Price</p>
+
+                            <p style="font-size:12px">@product.Description</p>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <a asp-action="EditProduct" asp-controller="Shop" asp-route-id="@product.Id" class="btn btn-primary rounded-pill py-1 px-2 m-2 w-50"> Edit <i class="fa fa-arrow-right ms-2"></i></a>
+                            <a asp-action="DeleteProduct" asp-controller="Shop" asp-route-id="@product.Id" class="btn btn-danger rounded-pill py-1 px-2 m-2 w-50">Remove <i class="fa fa-cart-plus ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                }
+        </div>
+    </div>
+</div>
+@* end Products *@

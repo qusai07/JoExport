@@ -1,0 +1,92 @@
+﻿:root {
+    --colorWhite: white;
+    --colorFooter: #2a79ef;
+    --colorbg: #0d6efd;
+    --colorbg2: #0750ba;
+    --gray: #E0E0E0;
+    --borderColor: rgba(0,0,0,.125);
+    --gray1: #eee;
+    --colorbtn: #9dc4ff
+}
+.Footer {
+    background: var(--colorWhite);
+}
+.fa-align-center:before{
+    content:none;
+}
+.Footer h5, .headFooter {
+    color: var(--colorbg);
+    font-size: 30px;
+    padding-top:0;
+}
+a:hover {
+    color: var(--colorWhite);
+}
+.list-unstyled li a{
+    width:30px;
+    height:30px;
+}
+
+.foots .nav a,.foot .nav .nav-aa {
+    color: #6c757d;
+    transition: 0.5s;
+}
+.foots .nav a:hover {
+        color: var(--colorbg);
+        margin-left:10px;
+    }
+.foot .nav .nav-aa:hover {
+    color: var(--colorbg);
+}
+    .list-unstyled {
+        gap: 10px;
+        justify-content: start;
+    }
+.list-unstyled li {
+    border-radius: 50%;
+    background: var(--colorWhite)
+}
+    .list-unstyled li a {
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+        border-radius: 50%;
+        border: 1px solid gray;
+        transition:0.5s;
+    }
+        .list-unstyled li a:hover{
+            background:var(--colorbg);
+            border-color:var(--colorbg);
+        }
+            .list-unstyled li a:hover svg{
+                color:var(--colorWhite);
+            }
+        .list-unstyled li a svg {
+            transition: 0.5s;
+            color: gray;
+        }
+@media(max-width:767px) {
+    .foot {
+        width:100%;
+        text-align:center;
+    }
+    .Footer h5, .headFooter {
+        justify-content: center;
+    }
+    .list-unstyled {
+        justify-content:center;
+    }
+}
+@media(max-width:576px){
+    .Footer .row {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.fsFooter{
+    font-size:14px;
+}
+.copyright{
+    color:var(--colorbg);
+}

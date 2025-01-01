@@ -1,0 +1,92 @@
+﻿﻿:root {
+    --color1: #1a1668;
+    --color2: #EAA451;
+    --color3: white;
+    --colorGray: #C5C5C5;
+    --gray: #f7f7f7;
+}
+.Detail{
+    background:var(--gray);
+}
+.imgBook img{
+    max-height:575px;
+    max-width:400px;
+}
+
+@media (max-width:991px) {
+    .DetailBook{
+        flex-direction:column;
+    }
+    .imgBook{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+}
+.detailInfo{
+    display:flex;
+    align-items:start;
+    flex-direction:column;
+    padding:0px 30px;
+    gap:35px;
+}
+
+@media (max-width:320px) {
+    .imgBook img {
+        max-height: 550px;
+        max-width: 275px;
+    }
+}
+@media (max-width:991px) {
+    .DetailBook {
+        flex-direction: column;
+    }
+
+    .imgBook {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .detailInfo {
+        max-width: 400px;
+        padding: 0px;
+        margin: 0 auto;
+    }
+
+    .priceCart {
+        width: 100%;
+    }
+}
+.detailInfo p{
+    font-size:18px;
+}
+.btnDetails{
+    margin-right:20px;
+}
+.detailInfos{
+    gap:50px;
+}
+.detailInfo h2 {
+    font-weight: bold;
+    font-size: 50px;
+    color: var(--color1);
+}
+.detailInfos div p{
+    font-size:12px;
+   color:gray;
+}
+.detailInfos div h5 {
+    color: var(--color1);
+    font-weight: bold;
+    font-size: 16px;
+}
+.bColor {
+    color: black;
+}
+.colorYallow{
+    color:var(--color2);
+}
+.priceCart div p{
+    color:var(--color1);
+}

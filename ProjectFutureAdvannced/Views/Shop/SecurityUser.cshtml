@@ -1,0 +1,67 @@
+﻿@model ProjectFutureAdvannced.ViewModels.UserViewModel.SecurityUser
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="profiles" style="margin:100px 0px">
+    <div class="container">
+        <div class="boxPorfile d-flex w-100">
+            <div class="boxPorfile1">
+                <div class="account mb-4 p-4 d-flex justify-content-center align-items-center flex-column">
+                    <div class="imgaccount">
+                        @{
+                            var user = await userManager.GetUserAsync(User);
+                            var img = "/AccountImg/" + user.ImgUrl;
+                            var shop = ShopRepo.GetByFk(user.Id);
+
+                            <img src="@img" />
+                        }
+                    </div>
+                    <div class="infoAccount text-center">
+                        <h3>@user.UserName</h3>
+                        <p>@shop.Major</p>
+                    </div>
+                </div>
+                <div class="list-group">
+                    <a asp-action="GeneralShopProfile" asp-controller="Shop" class="list-group-item list-group-item-action"> <i class="fas fa-fw fa-user"></i> General Information</a>
+                    <a asp-controller="Shop" asp-action="SecurityUser" class="list-group-item list-group-item-action"><i class="fa fa-user-secret" aria-hidden="true"></i> Security Information</a>
+                    <a asp-controller="Shop" asp-action="MyProduct" class="list-group-item list-group-item-action"><i class="fa fa-user-secret" aria-hidden="true"></i> My Product</a>
+
+                    <a asp-controller="Shop" asp-action="UserProfile" asp-route-UserName="@user.UserName" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-id-card"></i> View Posts & Gallery
+                    </a>
+                    <a asp-action="VipShop" asp-controller="Shop" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-envelope"></i> My Massages
+                    </a>
+                    <a asp-controller="Account" asp-action="Massages" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-user-tie"></i> Subscribe To Vip Shop
+                    </a>
+                    <a asp-action="Logout" asp-controller="Account" class="list-group-item list-group-item-action">
+                        <i class="fa fa-external-link" aria-hidden="true"></i> Log Out
+                    </a>
+                </div>
+            </div>
+            <form class="boxPorfile2" asp-action="SecurityUser" asp-controller="Shop" enctype="multipart/form-data" method="post">
+                <div class="row BasicInfo mb-5">
+                    <h6 class="col-12">SECURITY INFORMATION</h6>
+                    <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
+                        <label class="form-label" asp-for="CurrentPassword">Current Password</label>
+                        <input type="password" class="form-control" asp-for="CurrentPassword">
+                        <span class="text-danger" asp-validation-for="CurrentPassword"></span>
+                    </div>
+                    <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
+                        <label class="form-label" asp-for="NewPassword">New Password</label>
+                        <input type="password" class="form-control" asp-for="NewPassword">
+                        <span class="text-danger" asp-validation-for="NewPassword"></span>
+                    </div>
+                    <div class="mb-3 col-lg-6 col-md-6 col-sm-12">
+                        <label class="form-label" asp-for="ConfirmNewPassword">Confirm New Password</label>
+                        <input type="password" class="form-control" asp-for="ConfirmNewPassword">
+                        <span class="text-danger" asp-validation-for="ConfirmNewPassword"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Security Information</button>
+            </form>
+
+        </div>
+    </div>
+</div>
